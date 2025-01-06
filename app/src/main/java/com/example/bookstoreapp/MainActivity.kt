@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.Color
 import com.example.bookstoreapp.ui.theme.BookStoreAppTheme
 import com.example.bookstoreapp.ui_components.login.LoginScreen
+import com.example.bookstoreapp.ui_components.main_screen.MainScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 LoginScreen()
+                //MainScreen()
             }
         }
     }
