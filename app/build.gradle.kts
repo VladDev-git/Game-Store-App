@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android") version "2.51.1"
+    id("kotlin-kapt")
 }
 
 android {
@@ -51,6 +53,10 @@ android {
 }
 
 dependencies {
+
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    kapt("com.google.dagger:hilt-compiler:2.51.1")
 
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 

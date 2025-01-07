@@ -1,5 +1,6 @@
 package com.example.bookstoreapp.ui_components.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,10 +23,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bookstoreapp.R
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
 
     val emailState = remember {
         mutableStateOf("")
@@ -85,7 +87,17 @@ fun LoginScreen() {
         LoginButton(
             text = "Sign Up",
         ) {
-
+            loginViewModel.signUp(
+                loginViewModel.auth.value,
+                emailState.value,
+                passwordState.value,
+                onSignUpSuccess = {
+                    Log.d("LoginScreen", "Sign up success")
+                },
+                onSignUpFailed = {
+                    Log.d("LoginScreen", "Sign up failed")
+                }
+            )
         }
     }
 }

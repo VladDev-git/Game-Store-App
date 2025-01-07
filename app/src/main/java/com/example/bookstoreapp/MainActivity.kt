@@ -7,9 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.Color
 import com.example.bookstoreapp.ui.theme.BookStoreAppTheme
 import com.example.bookstoreapp.ui_components.login.LoginScreen
-import com.example.bookstoreapp.ui_components.main_screen.MainScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
