@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +30,9 @@ import com.example.bookstoreapp.R
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
 
+    val errorState = remember {
+        mutableStateOf("")
+    }
     val emailState = remember {
         mutableStateOf("")
     }
@@ -79,10 +83,27 @@ fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
             passwordState.value = it
         }
         Spacer(modifier = Modifier.height(10.dp))
+        if (errorState.value.isNotEmpty()) {
+            Text(
+                text = errorState.value,
+                color = Color.Red,
+                textAlign = TextAlign.Center
+            )
+        }
         LoginButton(
             text = "Sign In",
         ) {
-
+            loginViewModel.signIn(
+                loginViewModel.auth.value,
+                emailState.value,
+                passwordState.value,
+                onSignInSuccess = {
+                    Log.d("LoginScreen", "Sign In success")
+                },
+                onSignInFailed = { error ->
+                    errorState.value = error
+                }
+            )
         }
         LoginButton(
             text = "Sign Up",
@@ -94,8 +115,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
                 onSignUpSuccess = {
                     Log.d("LoginScreen", "Sign up success")
                 },
-                onSignUpFailed = {
-                    Log.d("LoginScreen", "Sign up failed")
+                onSignUpFailed = { error ->
+                    errorState.value = error
                 }
             )
         }

@@ -31,7 +31,29 @@ class LoginViewModel @Inject constructor(
                 if (it.isSuccessful) {
                     onSignUpSuccess()
                 } else {
-                    onSignUpFailed(it.exception?.message ?: "Unknown error")
+                    onSignUpFailed(it.exception?.message ?: "Sign Up error")
+                }
+            }
+    }
+
+    fun signIn(
+        auth: FirebaseAuth,
+        email: String,
+        password: String,
+        onSignInSuccess: () -> Unit,
+        onSignInFailed: (String) -> Unit
+    ) {
+        if (email.isBlank() || password.isBlank()) {
+            onSignInFailed("Email or password is empty")
+            return
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    onSignInSuccess()
+                } else {
+                    onSignInFailed(it.exception?.message ?: "Sign In error")
                 }
             }
     }
