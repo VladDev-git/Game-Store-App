@@ -2,6 +2,7 @@ package com.example.bookstoreapp.ui_components.login
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -18,7 +19,7 @@ class LoginViewModel @Inject constructor(
         auth: FirebaseAuth,
         email: String,
         password: String,
-        onSignUpSuccess: () -> Unit,
+        onSignUpSuccess: (MainScreenDataObject) -> Unit,
         onSignUpFailed: (String) -> Unit
     ) {
         if (email.isBlank() || password.isBlank()) {
@@ -27,11 +28,16 @@ class LoginViewModel @Inject constructor(
         }
 
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    onSignUpSuccess()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSignUpSuccess(
+                        MainScreenDataObject(
+                            uid = task.result.user?.uid!!,
+                            email = task.result.user?.email!!
+                        )
+                    )
                 } else {
-                    onSignUpFailed(it.exception?.message ?: "Sign Up error")
+                    onSignUpFailed(task.exception?.message ?: "Sign Up error")
                 }
             }
     }
@@ -40,7 +46,7 @@ class LoginViewModel @Inject constructor(
         auth: FirebaseAuth,
         email: String,
         password: String,
-        onSignInSuccess: () -> Unit,
+        onSignInSuccess: (MainScreenDataObject) -> Unit,
         onSignInFailed: (String) -> Unit
     ) {
         if (email.isBlank() || password.isBlank()) {
@@ -49,11 +55,16 @@ class LoginViewModel @Inject constructor(
         }
 
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    onSignInSuccess()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSignInSuccess(
+                        MainScreenDataObject(
+                            uid = task.result.user?.uid!!,
+                            email = task.result.user?.email!!
+                        )
+                    )
                 } else {
-                    onSignInFailed(it.exception?.message ?: "Sign In error")
+                    onSignInFailed(task.exception?.message ?: "Sign In error")
                 }
             }
     }

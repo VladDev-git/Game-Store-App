@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.dagger.hilt.android") version "2.51.1"
     id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.8.0"
 }
 
 android {
@@ -58,11 +59,14 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
 
-    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

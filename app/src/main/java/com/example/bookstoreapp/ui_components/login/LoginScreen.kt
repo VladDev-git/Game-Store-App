@@ -26,9 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bookstoreapp.R
+import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    onNavigationToMainScreen: (MainScreenDataObject) -> Unit
+) {
 
     val errorState = remember {
         mutableStateOf("")
@@ -97,8 +101,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
                 loginViewModel.auth.value,
                 emailState.value,
                 passwordState.value,
-                onSignInSuccess = {
-                    Log.d("LoginScreen", "Sign In success")
+                onSignInSuccess = { navData ->
+                    onNavigationToMainScreen(navData)
                 },
                 onSignInFailed = { error ->
                     errorState.value = error
@@ -112,8 +116,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = hiltViewModel()) {
                 loginViewModel.auth.value,
                 emailState.value,
                 passwordState.value,
-                onSignUpSuccess = {
-                    Log.d("LoginScreen", "Sign up success")
+                onSignUpSuccess = { navData ->
+                    onNavigationToMainScreen(navData)
                 },
                 onSignUpFailed = { error ->
                     errorState.value = error
