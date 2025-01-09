@@ -1,10 +1,12 @@
 package com.example.bookstoreapp.ui_components.login
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -66,6 +68,32 @@ class LoginViewModel @Inject constructor(
                 } else {
                     onSignInFailed(task.exception?.message ?: "Sign In error")
                 }
+            }
+    }
+
+    fun isAdmin(
+        onAdmin: (Boolean) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val uid = Firebase.auth.currentUser?.uid
+        if (uid == null) {
+            onFailure("User is not authenticated")
+            return
+        }
+
+        Firebase.firestore.collection("admin")
+            .document(uid)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val isAdmin = document.getBoolean("isAdmin") ?: false
+                    onAdmin(isAdmin)
+                } else {
+                    onAdmin(false)
+                }
+            }
+            .addOnFailureListener { e ->
+                onFailure(e.message ?: "Failed to fetch admin data")
             }
     }
 }

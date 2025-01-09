@@ -60,6 +60,8 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.51.1")
 
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation ("com.google.android.gms:play-services-auth:21.3.0")
 
     implementation("io.coil-kt:coil-compose:2.4.0")
 

@@ -9,7 +9,8 @@
       "client_info": {
         "mobilesdk_app_id": "1:893274866371:android:0d121cdb5b77c787b51876",
         "android_client_info": {
-          "package_name": "com.example.bookstoreapp"
+          "package_name": "com.example.bookstoreapp",
+          "certificate_hash": "f94c4dbb65252534242286971532f2c7af01cefa"
         }
       },
       "oauth_client": [],
