@@ -1,6 +1,5 @@
 package com.example.bookstoreapp.ui_components.login
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject

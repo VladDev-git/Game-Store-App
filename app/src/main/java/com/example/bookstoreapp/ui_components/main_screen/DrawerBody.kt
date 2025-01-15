@@ -37,7 +37,8 @@ import com.example.bookstoreapp.ui_components.login.LoginViewModel
 
 @Composable
 fun DrawerBody(
-    loginViewModel: LoginViewModel = hiltViewModel()
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    onAdminPanelClick: () -> Unit
 ) {
     val categoriesList = listOf(
         "Store",
@@ -128,7 +129,7 @@ fun DrawerBody(
             }
             if(isAdminState.value) Button(
                 onClick = {
-
+                    onAdminPanelClick()
                 },
                 modifier = Modifier
                     .fillMaxWidth()

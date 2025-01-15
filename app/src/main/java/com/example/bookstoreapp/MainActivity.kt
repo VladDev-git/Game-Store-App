@@ -17,8 +17,6 @@ import com.example.bookstoreapp.ui_components.login.data.LoginScreenObject
 import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
 import com.example.bookstoreapp.ui_components.main_screen.MainScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = AddScreenObject
+                    startDestination = LoginScreenObject
                 ) {
                     composable<LoginScreenObject> {
                         LoginScreen { navData ->
@@ -59,10 +57,14 @@ class MainActivity : ComponentActivity() {
                     }
                     composable<MainScreenDataObject> { navEntry ->
                         val navData = navEntry.toRoute<MainScreenDataObject>()
-                        MainScreen(navData)
+                        MainScreen(navData) {
+                            navController.navigate(AddScreenObject)
+                        }
                     }
                     composable<AddScreenObject> {
-                        AddGameScreen()
+                        AddGameScreen {
+                            navController.popBackStack()
+                        }
                     }
                 }
             }
