@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.bookstoreapp.ui.theme.BookStoreAppTheme
-import com.example.bookstoreapp.ui_components.add_game_screen.AddGameScreen
-import com.example.bookstoreapp.ui_components.add_game_screen.data.AddScreenObject
+import com.example.bookstoreapp.ui_components.admin.add_game_screen.AddGameScreen
+import com.example.bookstoreapp.ui_components.admin.add_game_screen.data.AddScreenObject
+import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.AdminPanelScreen
+import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.data.AdminPanelScreenObject
 import com.example.bookstoreapp.ui_components.login.LoginScreen
 import com.example.bookstoreapp.ui_components.login.data.LoginScreenObject
 import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
@@ -58,12 +60,17 @@ class MainActivity : ComponentActivity() {
                     composable<MainScreenDataObject> { navEntry ->
                         val navData = navEntry.toRoute<MainScreenDataObject>()
                         MainScreen(navData) {
-                            navController.navigate(AddScreenObject)
+                            navController.navigate(AdminPanelScreenObject)
                         }
                     }
                     composable<AddScreenObject> {
                         AddGameScreen {
                             navController.popBackStack()
+                        }
+                    }
+                    composable<AdminPanelScreenObject> {
+                        AdminPanelScreen {
+                            navController.navigate(AddScreenObject)
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-package com.example.bookstoreapp.ui_components.add_game_screen
+package com.example.bookstoreapp.ui_components.admin.add_game_screen
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

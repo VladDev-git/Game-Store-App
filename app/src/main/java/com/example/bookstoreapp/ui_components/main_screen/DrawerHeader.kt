@@ -22,7 +22,7 @@ import com.example.bookstoreapp.ui.theme.DarkBlue
 
 @Composable
 fun DrawerHeader(
-    email: String,
+    email: String = "",
 ) {
     Column(
         modifier = Modifier

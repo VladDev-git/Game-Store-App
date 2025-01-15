@@ -1,4 +1,4 @@
-package com.example.bookstoreapp.ui_components.add_game_screen.data
+package com.example.bookstoreapp.ui_components.admin.add_game_screen.data
 
 import kotlinx.serialization.Serializable
 
