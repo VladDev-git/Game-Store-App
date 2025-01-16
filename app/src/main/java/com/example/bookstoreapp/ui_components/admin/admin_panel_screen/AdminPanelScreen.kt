@@ -3,17 +3,11 @@ package com.example.bookstoreapp.ui_components.admin.admin_panel_screen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DrawerValue
@@ -26,12 +20,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bookstoreapp.R
 import com.example.bookstoreapp.ui.theme.DarkBlue
 import com.example.bookstoreapp.ui.theme.DarkGrey
-import com.example.bookstoreapp.ui.theme.LightGrey
 import com.example.bookstoreapp.ui_components.main_screen.DrawerBody
 import com.example.bookstoreapp.ui_components.main_screen.DrawerHeader
 import com.example.bookstoreapp.ui_components.main_screen.bottom_menu.BottomMenu
@@ -45,12 +38,12 @@ fun AdminPanelScreen(
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val menuItemsList = listOf(
-        "Add game",
-        "Edit game",
-        "Delete game",
-        "Add category",
-        "Edit category",
-        "Delete category"
+        "Add game" to R.drawable.ic_settings.toString(),
+        "Edit game" to R.drawable.ic_home.toString(),
+        "Delete game" to R.drawable.ic_profil.toString(),
+        "Add category" to R.drawable.ic_settings.toString(),
+        "Edit category" to R.drawable.ic_home.toString(),
+        "Delete category" to R.drawable.ic_profil.toString(),
     )
 
     ModalNavigationDrawer(
@@ -89,40 +82,40 @@ fun AdminPanelScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         items(menuItemsList) { item ->
-                            Column(modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
+                            AdminPanelMenuItem(item) {
 
-                                },
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Spacer(modifier = Modifier.height(10.dp))
-                                Row(
-
-                                ) {
-                                    Text(
-                                        text = item,
-                                        color = Color.White,
-                                        fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(50.dp)
-                                    )
-                                }
-                                Spacer(modifier = Modifier.height(10.dp))
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(1.dp)
-                                        .background(LightGrey)
-                                )
                             }
+                        }
+                        item {
+                            Text(
+                                text = "Log out",
+                                color = Color.White,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+
+                                    }
+                                    .padding(20.dp)
+                            )
+                        }
+                        item {
+                            Text(
+                                text = "Проблема у вирівнюванні тексту всередині Row. Ви використовуєте align(Alignment.CenterVertically)," +
+                                        " але це працює лише на рівні дочірнього елемента. Щоб текст вирівнювався по вертикалі по центру в " +
+                                        "межах контейнера Row, потрібно правильно налаштувати висоту Row і переконатися, що текст займає потрібне місце." +
+                                        " Ось оновлений код:",
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(20.dp)
+                            )
                         }
                     }
                 }
             }
-
         }
     }
 }
