@@ -14,6 +14,7 @@ import com.example.bookstoreapp.ui_components.admin.add_game_screen.AddGameScree
 import com.example.bookstoreapp.ui_components.admin.add_game_screen.data.AddScreenObject
 import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.AdminPanelScreen
 import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.data.AdminPanelScreenObject
+import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.data.MenuItem
 import com.example.bookstoreapp.ui_components.login.LoginScreen
 import com.example.bookstoreapp.ui_components.login.data.LoginScreenObject
 import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
@@ -69,8 +70,15 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     composable<AdminPanelScreenObject> {
-                        AdminPanelScreen {
-                            navController.navigate(AddScreenObject)
+                        AdminPanelScreen { menuItem ->
+                            when (menuItem) {
+                                is MenuItem.AddGame -> navController.navigate(AddScreenObject)
+                                is MenuItem.EditGame -> {}
+                                is MenuItem.DeleteGame -> {}
+                                is MenuItem.AddCategory -> {}
+                                is MenuItem.EditCategory -> {}
+                                is MenuItem.DeleteCategory -> {}
+                            }
                         }
                     }
                 }

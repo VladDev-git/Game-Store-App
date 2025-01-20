@@ -20,17 +20,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bookstoreapp.ui.theme.LightGrey
+import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.data.MenuItem
 
 @Composable
 fun AdminPanelMenuItem(
-    item: Pair<String, String>,
-    onItemClick: () -> Unit
+    item: MenuItem,
+    onItemClick: (MenuItem) -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .height(70.dp)
         .clickable {
-            onItemClick()
+            onItemClick(item)
         },
     ) {
         Spacer(modifier = Modifier.height(10.dp))
@@ -41,12 +42,12 @@ fun AdminPanelMenuItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                painter = painterResource(id = item.second.toInt()),
+                painter = painterResource(id = item.icon),
                 contentDescription = "icon",
                 modifier = Modifier.padding(start = 20.dp)
             )
             Text(
-                text = item.first,
+                text = item.title,
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,

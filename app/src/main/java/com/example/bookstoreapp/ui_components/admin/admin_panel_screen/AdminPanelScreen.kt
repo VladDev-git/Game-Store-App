@@ -22,9 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bookstoreapp.R
 import com.example.bookstoreapp.ui.theme.DarkBlue
 import com.example.bookstoreapp.ui.theme.DarkGrey
+import com.example.bookstoreapp.ui_components.admin.admin_panel_screen.data.MenuItem
 import com.example.bookstoreapp.ui_components.main_screen.DrawerBody
 import com.example.bookstoreapp.ui_components.main_screen.DrawerHeader
 import com.example.bookstoreapp.ui_components.main_screen.bottom_menu.BottomMenu
@@ -33,17 +33,17 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AdminPanelScreen(
-    onAddGameScreen: () -> Unit
+    onMenuItemClick: (MenuItem) -> Unit
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val menuItemsList = listOf(
-        "Add game" to R.drawable.ic_settings.toString(),
-        "Edit game" to R.drawable.ic_home.toString(),
-        "Delete game" to R.drawable.ic_profil.toString(),
-        "Add category" to R.drawable.ic_settings.toString(),
-        "Edit category" to R.drawable.ic_home.toString(),
-        "Delete category" to R.drawable.ic_profil.toString(),
+        MenuItem.AddGame,
+        MenuItem.EditGame,
+        MenuItem.DeleteGame,
+        MenuItem.AddCategory,
+        MenuItem.EditCategory,
+        MenuItem.DeleteCategory
     )
 
     ModalNavigationDrawer(
@@ -56,7 +56,6 @@ fun AdminPanelScreen(
                     coroutineScope.launch {
                         drawerState.close()
                     }
-                    onAddGameScreen()
                 }
             }
         }
@@ -83,7 +82,7 @@ fun AdminPanelScreen(
                     ) {
                         items(menuItemsList) { item ->
                             AdminPanelMenuItem(item) {
-
+                                onMenuItemClick(item)
                             }
                         }
                         item {
