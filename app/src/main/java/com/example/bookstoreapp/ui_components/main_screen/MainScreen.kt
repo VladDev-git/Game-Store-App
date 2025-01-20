@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bookstoreapp.ui_components.login.data.MainScreenDataObject
 import com.example.bookstoreapp.ui_components.main_screen.bottom_menu.BottomMenu
 import kotlinx.coroutines.launch
@@ -22,10 +25,21 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     navData: MainScreenDataObject,
+    mainScreenViewModel: MainScreenViewModel = hiltViewModel(),
     onAdminPanelClick: () -> Unit
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        mainScreenViewModel.getAllGames(
+            db = mainScreenViewModel.firestore.value,
+            onGames = { games ->
+                mainScreenViewModel.gamesListState.value = games
+            }
+        )
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         modifier = Modifier.fillMaxWidth(),
@@ -51,8 +65,8 @@ fun MainScreen(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.padding(paddingValues)
             ) {
-                items(10) {
-                    GameListItemUi()
+                items(mainScreenViewModel.gamesListState.value) { game ->
+                    GameListItemUi(game = game)
                 }
             }
         }

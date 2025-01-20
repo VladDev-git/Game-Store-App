@@ -13,14 +13,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.bookstoreapp.R
+import com.example.bookstoreapp.data.Game
 
 @Composable
 fun GameListItemUi(
-
+    game: Game
 ) {
     Column(
         modifier = Modifier
@@ -28,7 +29,7 @@ fun GameListItemUi(
             .padding(16.dp)
     ) {
         AsyncImage(
-            model = R.drawable.test_icon_list_game_item,
+            model = game.imageUrl,
             contentDescription = "Game image",
             modifier = Modifier
                 .fillMaxWidth()
@@ -38,20 +39,22 @@ fun GameListItemUi(
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Game title",
+            text = game.title,
             color = Color.Black,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp
         )
         Spacer(modifier = Modifier.height(5.dp))
         Text(
-            text = "Game description",
+            text = game.description,
             color = Color.Gray,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.height(5.dp))
         Text(
-            text = "50$",
+            text = game.price,
             color = Color.Blue,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
